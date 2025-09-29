@@ -1,0 +1,547 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.logo .icon {
+    margin-right: 5px;
+}
+
+.icons .icon {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.live-updates {
+    background-color: #e6ffe6;
+    text-align: center;
+    padding: 5px;
+    color: green;
+}
+
+.tracker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+h2 {
+    margin: 0;
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.tab {
+    background-color: #ddd;
+    border: none;
+    padding: 8px 16px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.tab.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.map {
+    height: 400px;
+    background-color: #e6f2ff;
+    position: relative;
+    margin: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.bus {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.green { background-color: green; }
+.orange { background-color: orange; }
+.blue { background-color: blue; }
+
+.stop {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: #333;
+    border-radius: 50%;
+}
+
+.search-section {
+    padding: 10px;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+#search-input {
+    width: 70%;
+    padding: 8px;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.alerts-section {
+    padding: 10px;
+    background-color: #fff;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+#alert-query {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+#alerts-list {
+    margin-top: 10px;
+}
+.routes-section {
+    padding: 10px;
+    background-color: #000;
+    margin: 10px;
+    border-radius: 8px;
+}
+.route-card {
+    background-color: #222;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+.route-card h3 {
+    margin: 0 0 5px 0;
+}
+.status {
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+.on-time { background-color: #28a745; }
+.high { background-color: #dc3545; }
+.medium { background-color: #fd7e14; }
+
+.track-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+.admin-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 300px;
+}
+.settings-panel {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    background-color: #222;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.settings-option {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.settings-option.active {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+}
+
+.alert-count {
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+#admin-message {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+/* ========== RESET & BASE ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  background: #f5f6fa;
+  color: #333;
+}
+
+/* ========== ADMIN PANEL CARD ========== */
+.admin-panel {
+  width: 320px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin: 20px auto;
+}
+
+.admin-panel.hidden {
+  display: none;
+}
+
+.admin-panel h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.admin-panel p {
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+/* ========== TEXTAREA / INPUTS ========== */
+.admin-panel textarea,
+.admin-panel input[type="text"],
+.admin-panel input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.admin-panel textarea:focus,
+.admin-panel input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 4px #4a90e2;
+}
+
+/* ========== BUTTONS ========== */
+.admin-panel button {
+  display: inline-block;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.admin-panel button:hover {
+  background: #0064d6;
+}
+
+/* Fleet / Alerts / Analytics tabs */
+.dashboard-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 20px;
+}
+
+.dashboard-tab {
+  flex: 1;
+  text-align: center;
+  background: #007bff;
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dashboard-tab:hover {
+  background: #0064d6;
+}
+
+.dashboard-tab.active {
+  background: #0056b3;
+}
+
+/* ========== SUB SECTIONS ========== */
+.dashboard-section {
+  margin-bottom: 20px;
+}
+
+.dashboard-section.hidden {
+  display: none;
+}
+
+.dashboard-section h4 {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.dashboard-section form label {
+  display: block;
+  font-weight: 500;
+  margin: 6px 0 2px;
+}
+
+/* Save button inside form */
+#add-bus-form button {
+  width: 100%;
+  margin-top: 10px;
+  background: #28a745;
+}
+
+#add-bus-form button:hover {
+  background: #218838;
+}
+
+/* ========== DARK MODE SUPPORT (optional) ========== */
+body.dark .admin-panel {
+  background: #1e1e1e;
+  color: #f0f0f0;
+}
+
+body.dark .admin-panel textarea,
+body.dark .admin-panel input {
+  background: #2c2c2c;
+  border: 1px solid #555;
+  color: #f0f0f0;
+}
+
+body.dark .dashboard-tab {
+  background: #444;
+}
+
+body.dark .dashboard-tab.active {
+  background: #222;
+}
+.admin-panel.hidden { display: none; }
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0f0f10;
+  color: #f0f0f0;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Bus card */
+.bus-card {
+  background: #1a1a1d;
+  border: 1px solid #2a2a2d;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.status.on-time {
+  background: #00c85333;
+  color: #00e676;
+  border: 1px solid #00e676;
+}
+
+.sub {
+  color: #aaa;
+  margin-top: 4px;
+  margin-bottom: 10px;
+}
+
+.info {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.info li i {
+  color: #4fc3f7;
+  margin-right: 6px;
+}
+
+.load {
+  margin-left: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+.load.high {
+  color: #ff5252;
+}
+.load.medium {
+  color: #ffb300;
+}
+
+.track-btn {
+  width: 100%;
+  background: #3d5afe;
+  border: none;
+  color: #fff;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.track-btn:hover {
+  background: #2c44d8;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .bus-card {
+    padding: 16px;
+  }
+  .header h2 {
+    font-size: 1.2rem;
+  }
+}
+/* Toggle button */
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 8px 14px;
+  background: #3d5afe;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  z-index: 1000;
+}
+.toggle-btn:hover {
+  background: #2c44d8;
+}
+
+/* Light mode defaults */
+body {
+  background: #f5f5f5;
+  color: #222;
+}
+.bus-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  color: #222;
+}
+
+/* Dark mode overrides */
+body.dark {
+  background: #0f0f10;
+  color: #f0f0f0;
+}
+body.dark .bus-card {
+  background: #1a1a1d;
+  border-color: #2a2a2d;
+  color: #f0f0f0;
+}
+/* Allow internal scrolling when content exceeds height */
+#admin-panel {
+  max-height: 90vh;      /* panel never taller than 90% of the viewport */
+  overflow-y: auto;      /* vertical scroll if needed */
+  overflow-x: hidden;    /* avoid horizontal scroll */
+  padding-right: 8px;    /* small padding so scrollbar doesn’t overlap text */
+  box-sizing: border-box;
+}
+
+

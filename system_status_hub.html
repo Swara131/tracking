@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>System Status Hub - TransitTracker Pro</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransittra1324back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-sm border-b border-border-light sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4c5.514 0 10 4.486 10 10s-4.486 10-10 10S6 21.514 6 16 10.486 6 16 6z"/>
+                            <circle cx="16" cy="12" r="2"/>
+                            <circle cx="12" cy="20" r="2"/>
+                            <circle cx="20" cy="20" r="2"/>
+                            <path d="M16 14v4M14 18h4"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-text-primary">TransitTracker Pro</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="homepage.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Home</a>
+                        <a href="live_tracker_dashboard.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Live Tracker</a>
+                        <a href="route_selector.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Routes</a>
+                        <a href="notification_center.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Notifications</a>
+                        <a href="system_status_hub.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Status</a>
+                        <a href="admin_dashboard.html" class="btn-primary text-sm">Admin</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-text-secondary hover:text-text-primary p-2" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-surface border-t border-border-light">
+                <a href="homepage.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="live_tracker_dashboard.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Live Tracker</a>
+                <a href="route_selector.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Routes</a>
+                <a href="notification_center.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Notifications</a>
+                <a href="system_status_hub.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Status</a>
+                <a href="admin_dashboard.html" class="btn-primary block text-center mx-3 mt-4">Admin Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-r from-primary-50 to-secondary-50 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-text-primary mb-2">System Status Hub</h1>
+                    <p class="text-lg text-text-secondary">Real-time operational overview and system health monitoring</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <div class="text-sm text-text-secondary">Last Updated</div>
+                        <div class="transit-time text-text-primary" id="last-updated">15:13:53</div>
+                    </div>
+                    <div class="w-3 h-3 bg-success rounded-full animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overall System Status -->
+    <section class="py-8 bg-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- System Status -->
+                <div class="card text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-success-100 rounded-lg mb-4">
+                        <svg class="h-6 w-6 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="status-success mb-2">Operational</div>
+                    <div class="text-sm text-text-secondary">Overall System</div>
+                </div>
+
+                <!-- Network Uptime -->
+                <div class="card text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-primary-100 rounded-lg mb-4">
+                        <svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div class="transit-time text-primary mb-1">99.97%</div>
+                    <div class="text-sm text-text-secondary">Network Uptime</div>
+                </div>
+
+                <!-- Data Accuracy -->
+                <div class="card text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-secondary-100 rounded-lg mb-4">
+                        <svg class="h-6 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="transit-time text-secondary mb-1">98.4%</div>
+                    <div class="text-sm text-text-secondary">GPS Accuracy</div>
+                </div>
+
+                <!-- Response Time -->
+                <div class="card text-center">
+                    <div class="inline-flex items-center justify-center w-12 h-12 bg-warning-100 rounded-lg mb-4">
+                        <svg class="h-6 w-6 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="transit-time text-warning mb-1">1.2s</div>
+                    <div class="text-sm text-text-secondary">Avg Response Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Alerts & Route Status -->
+    <section class="py-8 bg-background">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Active Service Alerts -->
+                <div class="card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-text-primary">Active Service Alerts</h2>
+                        <span class="status-warning">3 Active</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border border-warning-200 bg-warning-50 rounded-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <svg class="h-5 w-5 text-warning mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                </svg>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h3 class="font-medium text-text-primary">Route 42 - Minor Delays</h3>
+                                        <span class="text-xs text-text-secondary">14:45</span>
+                                    </div>
+                                    <p class="text-sm text-text-secondary mb-2">Traffic congestion causing 5-8 minute delays on downtown segment</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="route-code text-warning">Route 42</span>
+                                        <span class="text-xs text-text-secondary">•</span>
+                                        <span class="text-xs text-text-secondary">Estimated resolution: 15:30</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-error-200 bg-error-50 rounded-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <svg class="h-5 w-5 text-error mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h3 class="font-medium text-text-primary">Route 15 - Service Disruption</h3>
+                                        <span class="text-xs text-text-secondary">13:20</span>
+                                    </div>
+                                    <p class="text-sm text-text-secondary mb-2">Vehicle breakdown at University Station. Alternative routes available.</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="route-code text-error">Route 15</span>
+                                        <span class="text-xs text-text-secondary">•</span>
+                                        <span class="text-xs text-text-secondary">Replacement bus dispatched</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border border-primary-200 bg-primary-50 rounded-lg p-4">
+                            <div class="flex items-start gap-3">
+                                <svg class="h-5 w-5 text-primary mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <h3 class="font-medium text-text-primary">Scheduled Maintenance</h3>
+                                        <span class="text-xs text-text-secondary">12:00</span>
+                                    </div>
+                                    <p class="text-sm text-text-secondary mb-2">Route 8 maintenance scheduled for tonight 11 PM - 5 AM</p>
+                                    <div class="flex items-center gap-2">
+                                        <span class="route-code text-primary">Route 8</span>
+                                        <span class="text-xs text-text-secondary">•</span>
+                                        <span class="text-xs text-text-secondary">No service impact during day</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Route Performance Overview -->
+                <div class="card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-semibold text-text-primary">Route Performance</h2>
+                        <button class="text-primary hover:text-primary-700 text-sm font-medium transition-smooth">
+                            View Details →
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="route-code text-primary">Route 42</span>
+                                <span class="text-sm text-text-primary">Downtown ↔ Airport</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-medium text-warning">92.1%</span>
+                                <div class="w-2 h-2 bg-warning rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="route-code text-secondary">Route 15</span>
+                                <span class="text-sm text-text-primary">University ↔ Mall</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-medium text-error">78.3%</span>
+                                <div class="w-2 h-2 bg-error rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="route-code text-primary">Route 8</span>
+                                <span class="text-sm text-text-primary">Hospital ↔ Station</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-medium text-success">96.8%</span>
+                                <div class="w-2 h-2 bg-success rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="route-code text-secondary">Route 23</span>
+                                <span class="text-sm text-text-primary">Residential ↔ CBD</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-medium text-success">94.5%</span>
+                                <div class="w-2 h-2 bg-success rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <span class="route-code text-primary">Route 7</span>
+                                <span class="text-sm text-text-primary">North ↔ South</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="text-sm font-medium text-success">97.2%</span>
+                                <div class="w-2 h-2 bg-success rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Health Monitoring -->
+    <section class="py-8 bg-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-text-primary mb-4">System Health Monitoring</h2>
+                <p class="text-text-secondary">Real-time infrastructure and service monitoring across all network components</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Server Status -->
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">Server Infrastructure</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">API Server</span>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 bg-success rounded-full"></div>
+                                <span class="text-sm font-medium text-success">Online</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Database</span>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 bg-success rounded-full"></div>
+                                <span class="text-sm font-medium text-success">Online</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">WebSocket</span>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 bg-success rounded-full"></div>
+                                <span class="text-sm font-medium text-success">Connected</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Cache Server</span>
+                            <div class="flex items-center gap-2">
+                                <div class="w-2 h-2 bg-warning rounded-full"></div>
+                                <span class="text-sm font-medium text-warning">Degraded</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GPS & Connectivity -->
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">GPS & Connectivity</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">GPS Satellites</span>
+                            <span class="text-sm font-medium text-success">12 Connected</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Vehicle Connectivity</span>
+                            <span class="text-sm font-medium text-success">247/250</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Data Transmission</span>
+                            <span class="text-sm font-medium text-success">Normal</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Signal Quality</span>
+                            <span class="text-sm font-medium text-success">Excellent</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="card">
+                    <h3 class="text-lg font-semibold text-text-primary mb-4">Performance Metrics</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Update Frequency</span>
+                            <span class="text-sm font-medium text-success">30s</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Data Latency</span>
+                            <span class="text-sm font-medium text-success">1.2s</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Prediction Accuracy</span>
+                            <span class="text-sm font-medium text-success">94.7%</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-text-primary">Error Rate</span>
+                            <span class="text-sm font-medium text-success">0.03%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Historical Performance & Analytics -->
+    <section class="py-8 bg-background">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Performance Trends -->
+                <div class="card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-text-primary">Performance Trends</h3>
+                        <select class="text-sm border border-border-light rounded-md px-3 py-1">
+                            <option>Last 7 Days</option>
+                            <option>Last 30 Days</option>
+                            <option>Last 3 Months</option>
+                        </select>
+                    </div>
+                    <div class="relative bg-gray-50 rounded-lg p-6" style="height: 300px;">
+                        <!-- Performance Chart Placeholder -->
+                        <svg class="w-full h-full" viewBox="0 0 400 200">
+                            <defs>
+                                <linearGradient id="performanceGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#10B981;stop-opacity:0.3"/>
+                                    <stop offset="100%" style="stop-color:#10B981;stop-opacity:0"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Grid lines -->
+                            <g stroke="#E5E7EB" stroke-width="1">
+                                <line x1="0" y1="40" x2="400" y2="40"/>
+                                <line x1="0" y1="80" x2="400" y2="80"/>
+                                <line x1="0" y1="120" x2="400" y2="120"/>
+                                <line x1="0" y1="160" x2="400" y2="160"/>
+                            </g>
+                            <!-- Performance line -->
+                            <path d="M0,140 L50,130 L100,125 L150,135 L200,120 L250,115 L300,110 L350,105 L400,100" stroke="#10B981" stroke-width="3" fill="none"/>
+                            <!-- Fill area -->
+                            <path d="M0,140 L50,130 L100,125 L150,135 L200,120 L250,115 L300,110 L350,105 L400,100 L400,200 L0,200 Z" fill="url(#performanceGradient)"/>
+                            <!-- Data points -->
+                            <circle cx="0" cy="140" r="4" fill="#10B981"/>
+                            <circle cx="100" cy="125" r="4" fill="#10B981"/>
+                            <circle cx="200" cy="120" r="4" fill="#10B981"/>
+                            <circle cx="300" cy="110" r="4" fill="#10B981"/>
+                            <circle cx="400" cy="100" r="4" fill="#10B981"/>
+                        </svg>
+                        <div class="absolute bottom-2 left-2 text-xs text-text-secondary">
+                            On-time Performance: 94.2% ↑ 2.1%
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Incidents -->
+                <div class="card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-text-primary">Recent Incidents</h3>
+                        <a href="javascript:void(0)" class="text-primary hover:text-primary-700 text-sm font-medium transition-smooth">
+                            View All →
+                        </a>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-sm font-medium text-text-primary">Route 15 Service Restored</span>
+                                    <span class="text-xs text-text-secondary">14:30</span>
+                                </div>
+                                <p class="text-xs text-text-secondary">Vehicle breakdown resolved, normal service resumed</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-2 h-2 bg-warning rounded-full mt-2 flex-shrink-0"></div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-sm font-medium text-text-primary">Cache Server Performance</span>
+                                    <span class="text-xs text-text-secondary">13:45</span>
+                                </div>
+                                <p class="text-xs text-text-secondary">Degraded performance detected, monitoring closely</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-sm font-medium text-text-primary">System Update Completed</span>
+                                    <span class="text-xs text-text-secondary">12:00</span>
+                                </div>
+                                <p class="text-xs text-text-secondary">GPS accuracy improvements deployed successfully</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                            <div class="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-sm font-medium text-text-primary">Network Maintenance</span>
+                                    <span class="text-xs text-text-secondary">10:30</span>
+                                </div>
+                                <p class="text-xs text-text-secondary">Scheduled maintenance completed ahead of schedule</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Emergency Response & Public Communication -->
+    <section class="py-8 bg-surface">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Emergency Response -->
+                <div class="card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-text-primary">Emergency Response</h3>
+                        <button class="btn-primary text-sm">
+                            Emergency Protocol
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="bg-success-50 border border-success-200 rounded-lg p-4">
+                            <div class="flex items-center gap-3 mb-2">
+                                <svg class="h-5 w-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="font-medium text-success">All Systems Normal</span>
+                            </div>
+                            <p class="text-sm text-text-secondary">No emergency protocols currently active</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <h4 class="font-medium text-text-primary">Response Capabilities</h4>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                    <div class="text-lg font-semibold text-primary">< 2min</div>
+                                    <div class="text-xs text-text-secondary">Alert Distribution</div>
+                                </div>
+                                <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                    <div class="text-lg font-semibold text-secondary">15</div>
+                                    <div class="text-xs text-text-secondary">Alternative Routes</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Public Communication -->
+                <div class="card">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-semibold text-text-primary">Public Communication</h3>
+                        <button class="text-primary hover:text-primary-700 text-sm font-medium transition-smooth">
+                            Manage →
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <svg class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                </svg>
+                                <span class="text-sm text-text-primary">Website Announcements</span>
+                            </div>
+                            <span class="status-success">Active</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <svg class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 011 1v1a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1h4z"/>
+                                </svg>
+                                <span class="text-sm text-text-primary">Social Media Integration</span>
+                            </div>
+                            <span class="status-success">Connected</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <svg class="h-5 w-5 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"/>
+                                </svg>
+                                <span class="text-sm text-text-primary">Push Notifications</span>
+                            </div>
+                            <span class="status-success">12,847 Subscribers</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <svg class="h-5 w-5 text-error" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                </svg>
+                                <span class="text-sm text-text-primary">SMS Alerts</span>
+                            </div>
+                            <span class="status-success">3,421 Subscribers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4c5.514 0 10 4.486 10 10s-4.486 10-10 10S6 21.514 6 16 10.486 6 16 6z"/>
+                            <circle cx="16" cy="12" r="2"/>
+                            <circle cx="12" cy="20" r="2"/>
+                            <circle cx="20" cy="20" r="2"/>
+                            <path d="M16 14v4M14 18h4"/>
+                        </svg>
+                        <span class="ml-3 text-xl font-bold">TransitTracker Pro</span>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-md">
+                        Transforming public transportation through real-time tracking, intelligent notifications, 
+                        and comprehensive administrative controls.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="live_tracker_dashboard.html" class="text-gray-300 hover:text-white transition-smooth">Live Tracker</a></li>
+                        <li><a href="route_selector.html" class="text-gray-300 hover:text-white transition-smooth">Route Planner</a></li>
+                        <li><a href="notification_center.html" class="text-gray-300 hover:text-white transition-smooth">Notifications</a></li>
+                        <li><a href="system_status_hub.html" class="text-gray-300 hover:text-white transition-smooth">System Status</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-smooth">Help Center</a></li>
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-smooth">Contact Us</a></li>
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-smooth">API Documentation</a></li>
+                        <li><a href="admin_dashboard.html" class="text-gray-300 hover:text-white transition-smooth">Admin Portal</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">© 2025 TransitTracker Pro. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Update timestamp every second
+        function updateTimestamp() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('last-updated').textContent = timeString;
+        }
+
+        // Update timestamp immediately and then every second
+        updateTimestamp();
+        setInterval(updateTimestamp, 1000);
+
+        // Simulate real-time status updates
+        function simulateStatusUpdates() {
+            const statusElements = document.querySelectorAll('.transit-time');
+            statusElements.forEach(element => {
+                if (element.textContent.includes('%')) {
+                    const currentValue = parseFloat(element.textContent);
+                    const variation = (Math.random() - 0.5) * 0.2;
+                    const newValue = Math.max(90, Math.min(100, currentValue + variation));
+                    element.textContent = newValue.toFixed(1) + '%';
+                }
+            });
+        }
+
+        // Update status every 30 seconds
+        setInterval(simulateStatusUpdates, 30000);
+
+        // Add click handlers for interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to status cards
+            const statusCards = document.querySelectorAll('.card');
+            statusCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                    this.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '';
+                });
+            });
+
+            // Simulate alert updates
+            setTimeout(() => {
+                const alertCount = document.querySelector('.status-warning');
+                if (alertCount && alertCount.textContent === '3 Active') {
+                    alertCount.textContent = '2 Active';
+                    alertCount.className = 'status-success';
+                    alertCount.textContent = '2 Active';
+                }
+            }, 60000);
+        });
+
+        // Emergency protocol handler
+        function activateEmergencyProtocol() {
+            alert('Emergency protocol activation requires administrative privileges. Redirecting to admin dashboard...');
+            setTimeout(() => {
+                window.location.href = 'admin_dashboard.html';
+            }, 2000);
+        }
+
+        // Add emergency protocol click handler
+        document.querySelector('.btn-primary').addEventListener('click', activateEmergencyProtocol);
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

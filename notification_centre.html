@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notification Center - TransitTracker Pro</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransittra1324back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-sm border-b border-border-light sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4c5.514 0 10 4.486 10 10s-4.486 10-10 10S6 21.514 6 16 10.486 6 16 6z"/>
+                            <circle cx="16" cy="12" r="2"/>
+                            <circle cx="12" cy="20" r="2"/>
+                            <circle cx="20" cy="20" r="2"/>
+                            <path d="M16 14v4M14 18h4"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-text-primary">TransitTracker Pro</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="homepage.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Home</a>
+                        <a href="live_tracker_dashboard.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Live Tracker</a>
+                        <a href="route_selector.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Routes</a>
+                        <a href="notification_center.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Notifications</a>
+                        <a href="system_status_hub.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Status</a>
+                        <a href="admin_dashboard.html" class="btn-primary text-sm">Admin</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-text-secondary hover:text-text-primary p-2" onclick="toggleMobileMenu()">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-surface border-t border-border-light">
+                <a href="homepage.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="live_tracker_dashboard.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Live Tracker</a>
+                <a href="route_selector.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Routes</a>
+                <a href="notification_center.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Notifications</a>
+                <a href="system_status_hub.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Status</a>
+                <a href="admin_dashboard.html" class="btn-primary block text-center mx-3 mt-4">Admin Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-br from-primary-50 to-secondary-50 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-4">
+                    <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"/>
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-bold text-text-primary mb-4">Notification Center</h1>
+                <p class="text-xl text-text-secondary max-w-3xl mx-auto">
+                    Stay informed with real-time alerts, service updates, and personalized notifications 
+                    tailored to your transit needs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Notification Settings Panel -->
+                <div class="lg:col-span-1">
+                    <div class="card sticky top-24">
+                        <h2 class="text-xl font-semibold text-text-primary mb-6">Notification Settings</h2>
+                        
+                        <!-- Quick Actions -->
+                        <div class="space-y-4 mb-8">
+                            <button class="btn-primary w-full" onclick="openNewAlertModal()">
+                                <svg class="h-5 w-5 mr-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                </svg>
+                                Create New Alert
+                            </button>
+                            <button class="w-full px-4 py-2 border border-border-light rounded-lg text-text-primary hover:bg-gray-50 transition-smooth" onclick="openPreferencesModal()">
+                                <svg class="h-5 w-5 mr-2 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                                Preferences
+                            </button>
+                        </div>
+
+                        <!-- Active Alerts Summary -->
+                        <div class="border-t border-border-light pt-6">
+                            <h3 class="text-lg font-medium text-text-primary mb-4">Active Alerts</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-text-primary">Route Alerts</span>
+                                    <span class="status-success">7 Active</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-text-primary">Stop Alerts</span>
+                                    <span class="status-success">3 Active</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-text-primary">Service Updates</span>
+                                    <span class="status-warning">2 Active</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-text-primary">Emergency Alerts</span>
+                                    <span class="status-success">Enabled</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quiet Hours -->
+                        <div class="border-t border-border-light pt-6 mt-6">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-lg font-medium text-text-primary">Quiet Hours</h3>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked />
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <p class="text-sm text-text-secondary mb-3">10:00 PM - 7:00 AM</p>
+                            <button class="text-primary text-sm hover:text-primary-700 transition-smooth">Edit Schedule</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Feed -->
+                <div class="lg:col-span-2">
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button class="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium" onclick="filterNotifications('all')">
+                            All Notifications
+                        </button>
+                        <button class="px-4 py-2 bg-gray-100 text-text-secondary rounded-lg text-sm font-medium hover:bg-gray-200 transition-smooth" onclick="filterNotifications('routes')">
+                            Route Alerts
+                        </button>
+                        <button class="px-4 py-2 bg-gray-100 text-text-secondary rounded-lg text-sm font-medium hover:bg-gray-200 transition-smooth" onclick="filterNotifications('service')">
+                            Service Updates
+                        </button>
+                        <button class="px-4 py-2 bg-gray-100 text-text-secondary rounded-lg text-sm font-medium hover:bg-gray-200 transition-smooth" onclick="filterNotifications('maintenance')">
+                            Maintenance
+                        </button>
+                        <button class="px-4 py-2 bg-gray-100 text-text-secondary rounded-lg text-sm font-medium hover:bg-gray-200 transition-smooth" onclick="filterNotifications('emergency')">
+                            Emergency
+                        </button>
+                    </div>
+
+                    <!-- Notifications List -->
+                    <div class="space-y-4" id="notifications-container">
+                        <!-- Real-time Service Alert -->
+                        <div class="card border-l-4 border-l-warning notification-item" data-category="service">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-warning-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <svg class="h-5 w-5 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <h3 class="font-semibold text-text-primary">Service Disruption</h3>
+                                            <span class="route-code bg-warning-100 text-warning-700 px-2 py-1 rounded">Route 42</span>
+                                        </div>
+                                        <p class="text-text-secondary mb-3">
+                                            Route 42 experiencing 8-minute delays due to traffic congestion on Main Street. 
+                                            Alternative routes available via Route 15 and Route 28.
+                                        </p>
+                                        <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                            <span class="transit-time">2:47 PM</span>
+                                            <span>•</span>
+                                            <span>Sep 29, 2025</span>
+                                            <button class="text-primary hover:text-primary-700 transition-smooth ml-auto">
+                                                View Alternatives
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="text-text-secondary hover:text-text-primary p-1" onclick="dismissNotification(this)">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Route Alert -->
+                        <div class="card border-l-4 border-l-primary notification-item" data-category="routes">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <svg class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <h3 class="font-semibold text-text-primary">Bus Approaching</h3>
+                                            <span class="route-code bg-primary-100 text-primary px-2 py-1 rounded">Route 15</span>
+                                        </div>
+                                        <p class="text-text-secondary mb-3">
+                                            Your bus to University Campus is arriving at Downtown Transit Center in 3 minutes.
+                                        </p>
+                                        <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                            <span class="transit-time">2:45 PM</span>
+                                            <span>•</span>
+                                            <span>Sep 29, 2025</span>
+                                            <button class="text-primary hover:text-primary-700 transition-smooth ml-auto">
+                                                Track Live
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="text-text-secondary hover:text-text-primary p-1" onclick="dismissNotification(this)">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Maintenance Schedule -->
+                        <div class="card border-l-4 border-l-secondary notification-item" data-category="maintenance">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-secondary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <svg class="h-5 w-5 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <h3 class="font-semibold text-text-primary">Scheduled Maintenance</h3>
+                                            <span class="route-code bg-secondary-100 text-secondary px-2 py-1 rounded">Route 8</span>
+                                        </div>
+                                        <p class="text-text-secondary mb-3">
+                                            Route 8 will have limited service this weekend (Oct 1-2) for track maintenance. 
+                                            Shuttle service will be available between Hospital and Central Station.
+                                        </p>
+                                        <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                            <span class="transit-time">1:30 PM</span>
+                                            <span>•</span>
+                                            <span>Sep 29, 2025</span>
+                                            <button class="text-primary hover:text-primary-700 transition-smooth ml-auto">
+                                                View Details
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="text-text-secondary hover:text-text-primary p-1" onclick="dismissNotification(this)">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- System Update -->
+                        <div class="card border-l-4 border-l-success notification-item" data-category="service">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-success-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <svg class="h-5 w-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <h3 class="font-semibold text-text-primary">Service Restored</h3>
+                                            <span class="route-code bg-success-100 text-success px-2 py-1 rounded">All Routes</span>
+                                        </div>
+                                        <p class="text-text-secondary mb-3">
+                                            All routes are now operating on schedule. GPS tracking accuracy has been restored to 98.7%.
+                                        </p>
+                                        <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                            <span class="transit-time">12:15 PM</span>
+                                            <span>•</span>
+                                            <span>Sep 29, 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="text-text-secondary hover:text-text-primary p-1" onclick="dismissNotification(this)">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Route Alert -->
+                        <div class="card border-l-4 border-l-primary notification-item" data-category="routes">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <svg class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <h3 class="font-semibold text-text-primary">Stop Alert Setup</h3>
+                                            <span class="route-code bg-primary-100 text-primary px-2 py-1 rounded">University Campus</span>
+                                        </div>
+                                        <p class="text-text-secondary mb-3">
+                                            You've successfully set up arrival notifications for University Campus stop. 
+                                            You'll receive alerts 5 minutes before your bus arrives.
+                                        </p>
+                                        <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                            <span class="transit-time">11:45 AM</span>
+                                            <span>•</span>
+                                            <span>Sep 29, 2025</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="text-text-secondary hover:text-text-primary p-1" onclick="dismissNotification(this)">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Load More -->
+                    <div class="text-center mt-8">
+                        <button class="px-6 py-3 border border-border-light rounded-lg text-text-primary hover:bg-gray-50 transition-smooth" onclick="loadMoreNotifications()">
+                            Load More Notifications
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Alert Modal -->
+    <div id="new-alert-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-surface rounded-lg shadow-floating max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-text-primary">Create New Alert</h2>
+                    <button onclick="closeNewAlertModal()" class="text-text-secondary hover:text-text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Alert Type</label>
+                        <select class="input-field">
+                            <option>Route Arrival Alert</option>
+                            <option>Stop Departure Alert</option>
+                            <option>Service Disruption Alert</option>
+                            <option>Maintenance Schedule Alert</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Route/Stop</label>
+                        <input type="text" class="input-field" placeholder="Search routes or stops..." value="Route 42 - Downtown Transit Center" />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Notification Timing</label>
+                        <select class="input-field">
+                            <option>5 minutes before arrival</option>
+                            <option>10 minutes before arrival</option>
+                            <option>15 minutes before arrival</option>
+                            <option>At departure time</option>
+                            <option>Custom timing</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Delivery Method</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded border-border-light text-primary focus:ring-primary-100" checked />
+                                <span class="ml-2 text-sm text-text-primary">Push Notification</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded border-border-light text-primary focus:ring-primary-100" />
+                                <span class="ml-2 text-sm text-text-primary">Email Alert</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="rounded border-border-light text-primary focus:ring-primary-100" checked />
+                                <span class="ml-2 text-sm text-text-primary">In-App Message</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-text-primary mb-2">Schedule</label>
+                        <select class="input-field">
+                            <option>Daily (Mon-Sun)</option>
+                            <option>Weekdays Only (Mon-Fri)</option>
+                            <option>Weekends Only (Sat-Sun)</option>
+                            <option>Custom Schedule</option>
+                            <option>One-time Alert</option>
+                        </select>
+                    </div>
+
+                    <div class="flex gap-3 pt-4">
+                        <button type="submit" class="btn-primary flex-1">Create Alert</button>
+                        <button type="button" onclick="closeNewAlertModal()" class="px-6 py-3 border border-border-light rounded-lg text-text-primary hover:bg-gray-50 transition-smooth">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preferences Modal -->
+    <div id="preferences-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-surface rounded-lg shadow-floating max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-text-primary">Notification Preferences</h2>
+                    <button onclick="closePreferencesModal()" class="text-text-secondary hover:text-text-primary">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Delivery Methods -->
+                    <div>
+                        <h3 class="text-lg font-medium text-text-primary mb-4">Default Delivery Methods</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-primary">Push Notifications</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked />
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-primary">Email Alerts</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" />
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-primary">SMS Messages</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" />
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alert Types -->
+                    <div>
+                        <h3 class="text-lg font-medium text-text-primary mb-4">Alert Types</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-primary">Route Arrivals</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked />
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-primary">Service Disruptions</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked />
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-primary">Maintenance Schedules</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked />
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-text-primary">Emergency Alerts</span>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked />
+                                    <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-100 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frequency Settings -->
+                    <div>
+                        <h3 class="text-lg font-medium text-text-primary mb-4">Notification Frequency</h3>
+                        <div class="space-y-3">
+                            <label class="flex items-center">
+                                <input type="radio" name="frequency" class="text-primary focus:ring-primary-100" checked />
+                                <span class="ml-2 text-text-primary">Real-time (as they happen)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="frequency" class="text-primary focus:ring-primary-100" />
+                                <span class="ml-2 text-text-primary">Grouped (every 15 minutes)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="frequency" class="text-primary focus:ring-primary-100" />
+                                <span class="ml-2 text-text-primary">Summary (hourly digest)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 pt-4">
+                        <button class="btn-primary flex-1">Save Preferences</button>
+                        <button type="button" onclick="closePreferencesModal()" class="px-6 py-3 border border-border-light rounded-lg text-text-primary hover:bg-gray-50 transition-smooth">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4c5.514 0 10 4.486 10 10s-4.486 10-10 10S6 21.514 6 16 10.486 6 16 6z"/>
+                            <circle cx="16" cy="12" r="2"/>
+                            <circle cx="12" cy="20" r="2"/>
+                            <circle cx="20" cy="20" r="2"/>
+                            <path d="M16 14v4M14 18h4"/>
+                        </svg>
+                        <span class="ml-3 text-xl font-bold">TransitTracker Pro</span>
+                    </div>
+                    <p class="text-gray-300 mb-4 max-w-md">
+                        Transforming public transportation through real-time tracking, intelligent notifications, 
+                        and comprehensive administrative controls.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="live_tracker_dashboard.html" class="text-gray-300 hover:text-white transition-smooth">Live Tracker</a></li>
+                        <li><a href="route_selector.html" class="text-gray-300 hover:text-white transition-smooth">Route Planner</a></li>
+                        <li><a href="notification_center.html" class="text-gray-300 hover:text-white transition-smooth">Notifications</a></li>
+                        <li><a href="system_status_hub.html" class="text-gray-300 hover:text-white transition-smooth">System Status</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-smooth">Help Center</a></li>
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-smooth">Contact Us</a></li>
+                        <li><a href="javascript:void(0)" class="text-gray-300 hover:text-white transition-smooth">API Documentation</a></li>
+                        <li><a href="admin_dashboard.html" class="text-gray-300 hover:text-white transition-smooth">Admin Portal</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">© 2025 TransitTracker Pro. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function openNewAlertModal() {
+            document.getElementById('new-alert-modal').classList.remove('hidden');
+        }
+
+        function closeNewAlertModal() {
+            document.getElementById('new-alert-modal').classList.add('hidden');
+        }
+
+        function openPreferencesModal() {
+            document.getElementById('preferences-modal').classList.remove('hidden');
+        }
+
+        function closePreferencesModal() {
+            document.getElementById('preferences-modal').classList.add('hidden');
+        }
+
+        function filterNotifications(category) {
+            const buttons = document.querySelectorAll('[onclick^="filterNotifications"]');
+            const notifications = document.querySelectorAll('.notification-item');
+            
+            // Update button states
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-text-secondary');
+            });
+            
+            event.target.classList.remove('bg-gray-100', 'text-text-secondary');
+            event.target.classList.add('bg-primary', 'text-white');
+            
+            // Filter notifications
+            notifications.forEach(notification => {
+                if (category === 'all' || notification.dataset.category === category) {
+                    notification.style.display = 'block';
+                } else {
+                    notification.style.display = 'none';
+                }
+            });
+        }
+
+        function dismissNotification(button) {
+            const notification = button.closest('.notification-item');
+            notification.style.opacity = '0.5';
+            notification.style.transform = 'translateX(20px)';
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }
+
+        function loadMoreNotifications() {
+            const container = document.getElementById('notifications-container');
+            const button = event.target;
+            
+            button.textContent = 'Loading...';
+            button.disabled = true;
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                // Add more notifications (mock data)
+                const newNotifications = [
+                    {
+                        type: 'routes',
+                        title: 'Route Schedule Update',
+                        route: 'Route 25',
+                        message: 'Route 25 schedule has been updated with improved frequency during peak hours.',
+                        time: '10:30 AM',
+                        date: 'Sep 29, 2025'
+                    },
+                    {
+                        type: 'service',
+                        title: 'Weather Advisory',
+                        route: 'All Routes',
+                        message: 'Light rain expected this afternoon. All routes operating normally with potential minor delays.',
+                        time: '9:15 AM',
+                        date: 'Sep 29, 2025'
+                    }
+                ];
+                
+                newNotifications.forEach(notif => {
+                    const notificationHTML = createNotificationHTML(notif);
+                    container.insertAdjacentHTML('beforeend', notificationHTML);
+                });
+                
+                button.textContent = 'Load More Notifications';
+                button.disabled = false;
+            }, 1500);
+        }
+
+        function createNotificationHTML(notif) {
+            const colors = {
+                routes: 'primary',
+                service: 'warning',
+                maintenance: 'secondary',
+                emergency: 'error'
+            };
+            
+            const color = colors[notif.type] || 'primary';
+            
+            return `
+                <div class="card border-l-4 border-l-${color} notification-item" data-category="${notif.type}">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 bg-${color}-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="h-5 w-5 text-${color}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <h3 class="font-semibold text-text-primary">${notif.title}</h3>
+                                    <span class="route-code bg-${color}-100 text-${color} px-2 py-1 rounded">${notif.route}</span>
+                                </div>
+                                <p class="text-text-secondary mb-3">${notif.message}</p>
+                                <div class="flex items-center gap-4 text-sm text-text-secondary">
+                                    <span class="transit-time">${notif.time}</span>
+                                    <span>•</span>
+                                    <span>${notif.date}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="text-text-secondary hover:text-text-primary p-1" onclick="dismissNotification(this)">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(event) {
+            const newAlertModal = document.getElementById('new-alert-modal');
+            const preferencesModal = document.getElementById('preferences-modal');
+            
+            if (event.target === newAlertModal) {
+                closeNewAlertModal();
+            }
+            
+            if (event.target === preferencesModal) {
+                closePreferencesModal();
+            }
+        });
+
+        // Simulate real-time notifications
+        function addRealTimeNotification() {
+            const notifications = [
+                {
+                    type: 'routes',
+                    title: 'Bus Approaching',
+                    route: 'Route 42',
+                    message: 'Your bus to Airport Terminal is arriving in 2 minutes.',
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    date: 'Sep 29, 2025'
+                }
+            ];
+            
+            const container = document.getElementById('notifications-container');
+            const randomNotif = notifications[Math.floor(Math.random() * notifications.length)];
+            const notificationHTML = createNotificationHTML(randomNotif);
+            
+            container.insertAdjacentHTML('afterbegin', notificationHTML);
+            
+            // Add animation
+            const newNotification = container.firstElementChild;
+            newNotification.style.opacity = '0';
+            newNotification.style.transform = 'translateY(-20px)';
+            
+            setTimeout(() => {
+                newNotification.style.opacity = '1';
+                newNotification.style.transform = 'translateY(0)';
+                newNotification.style.transition = 'all 300ms ease-in-out';
+            }, 100);
+        }
+
+        // Add a new notification every 2 minutes (for demo purposes)
+        setInterval(addRealTimeNotification, 120000);
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

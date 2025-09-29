@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - TransitTracker Pro</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ftransittra1324back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.8"></script>
+</head>
+<body class="bg-background min-h-screen">
+    <!-- Navigation Header -->
+    <nav class="bg-surface shadow-sm border-b border-border-light sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" viewBox="0 0 32 32" fill="currentColor">
+                            <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4c5.514 0 10 4.486 10 10s-4.486 10-10 10S6 21.514 6 16 10.486 6 16 6z"/>
+                            <circle cx="16" cy="12" r="2"/>
+                            <circle cx="12" cy="20" r="2"/>
+                            <circle cx="20" cy="20" r="2"/>
+                            <path d="M16 14v4M14 18h4"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-text-primary">TransitTracker Pro</h1>
+                        <div class="text-xs text-text-secondary">Admin Portal</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="homepage.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Home</a>
+                        <a href="live_tracker_dashboard.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Live Tracker</a>
+                        <a href="route_selector.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Routes</a>
+                        <a href="notification_center.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Notifications</a>
+                        <a href="system_status_hub.html" class="text-text-secondary hover:text-text-primary px-3 py-2 rounded-md text-sm font-medium transition-smooth">Status</a>
+                        <a href="admin_dashboard.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Admin</a>
+                    </div>
+                </div>
+
+                <!-- Admin User Menu -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-3">
+                        <div class="text-right">
+                            <div class="text-sm font-medium text-text-primary">Sarah Johnson</div>
+                            <div class="text-xs text-text-secondary">Transit Administrator</div>
+                        </div>
+                        <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center">
+                            <span class="text-primary font-semibold text-sm">SJ</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden">
+                        <button type="button" class="text-text-secondary hover:text-text-primary p-2" onclick="toggleMobileMenu()">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-surface border-t border-border-light">
+                <a href="homepage.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="live_tracker_dashboard.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Live Tracker</a>
+                <a href="route_selector.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Routes</a>
+                <a href="notification_center.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Notifications</a>
+                <a href="system_status_hub.html" class="text-text-secondary hover:text-text-primary block px-3 py-2 rounded-md text-base font-medium">Status</a>
+                <a href="admin_dashboard.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Admin Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Sidebar -->
+    <div class="flex">
+        <aside class="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 lg:pt-16 bg-surface border-r border-border-light">
+            <div class="flex-1 flex flex-col min-h-0">
+                <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+                    <nav class="mt-5 flex-1 px-2 space-y-1">
+                        <!-- Dashboard Overview -->
+                        <a href="#overview" class="bg-primary-50 text-primary group flex items-center px-2 py-2 text-sm font-medium rounded-md" onclick="showSection('overview')">
+                            <svg class="text-primary mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"/>
+                            </svg>
+                            Overview
+                        </a>
+
+                        <!-- Fleet Management -->
+                        <a href="#fleet" class="text-text-secondary hover:text-text-primary hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-smooth" onclick="showSection('fleet')">
+                            <svg class="text-text-secondary mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2v0a2 2 0 01-2 2H8a2 2 0 01-2-2v0a2 2 0 01-2-2V9a2 2 0 012-2h2z"/>
+                            </svg>
+                            Fleet Management
+                        </a>
+
+                        <!-- Route Management -->
+                        <a href="#routes" class="text-text-secondary hover:text-text-primary hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-smooth" onclick="showSection('routes')">
+                            <svg class="text-text-secondary mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m0 0L9 7"/>
+                            </svg>
+                            Route Management
+                        </a>
+
+                        <!-- Analytics -->
+                        <a href="#analytics" class="text-text-secondary hover:text-text-primary hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-smooth" onclick="showSection('analytics')">
+                            <svg class="text-text-secondary mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            Analytics
+                        </a>
+
+                        <!-- Maintenance -->
+                        <a href="#maintenance" class="text-text-secondary hover:text-text-primary hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-smooth" onclick="showSection('maintenance')">
+                            <svg class="text-text-secondary mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            Maintenance
+                        </a>
+
+                        <!-- Alerts & Communications -->
+                        <a href="#alerts" class="text-text-secondary hover:text-text-primary hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-smooth" onclick="showSection('alerts')">
+                            <svg class="text-text-secondary mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM4 19h6v-2H4v2zM4 15h8v-2H4v2zM4 11h10V9H4v2z"/>
+                            </svg>
+                            Alerts & Communications
+                        </a>
+
+                        <!-- User Management -->
+                        <a href="#users" class="text-text-secondary hover:text-text-primary hover:bg-gray-50 group flex items-center px-2 py-2 text-sm font-medium rounded-md transition-smooth" onclick="showSection('users')">
+                            <svg class="text-text-secondary mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                            </svg>
+                            User Management
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:pl-64">
+            <!-- Overview Section -->
+            <div id="overview-section" class="admin-section">
+                <!-- Header -->
+                <div class="bg-surface border-b border-border-light px-4 py-6 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-text-primary">Dashboard Overview</h1>
+                            <p class="text-text-secondary">Real-time system status and key performance indicators</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-sm text-text-secondary">Last Updated</div>
+                            <div class="text-sm font-medium text-text-primary">Sep 29, 2025 3:13 PM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="px-4 py-6 sm:px-6 lg:px-8">
+                    <!-- Key Metrics -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="card text-center">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-primary-100 rounded-lg mb-4">
+                                <svg class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2v0a2 2 0 01-2 2H8a2 2 0 01-2-2v0a2 2 0 01-2-2V9a2 2 0 012-2h2z"/>
+                                </svg>
+                            </div>
+                            <div class="transit-time text-primary mb-1">247</div>
+                            <div class="text-sm text-text-secondary">Active Vehicles</div>
+                            <div class="text-xs text-success mt-1">↑ 3 from yesterday</div>
+                        </div>
+
+                        <div class="card text-center">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-secondary-100 rounded-lg mb-4">
+                                <svg class="h-6 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="transit-time text-secondary mb-1">94.2%</div>
+                            <div class="text-sm text-text-secondary">On-Time Performance</div>
+                            <div class="text-xs text-success mt-1">↑ 1.2% this week</div>
+                        </div>
+
+                        <div class="card text-center">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-warning-100 rounded-lg mb-4">
+                                <svg class="h-6 w-6 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                                </svg>
+                            </div>
+                            <div class="transit-time text-warning mb-1">12,847</div>
+                            <div class="text-sm text-text-secondary">Active Users</div>
+                            <div class="text-xs text-success mt-1">↑ 847 today</div>
+                        </div>
+
+                        <div class="card text-center">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-success-100 rounded-lg mb-4">
+                                <svg class="h-6 w-6 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <div class="transit-time text-success mb-1">99.8%</div>
+                            <div class="text-sm text-text-secondary">System Uptime</div>
+                            <div class="text-xs text-success mt-1">30-day average</div>
+                        </div>
+                    </div>
+
+                    <!-- Real-Time Alerts -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                        <div class="card">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Active Alerts</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3 p-3 bg-warning-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-warning rounded-full mt-2 flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-text-primary">Route 15 Delayed</p>
+                                        <p class="text-xs text-text-secondary">Vehicle #1523 experiencing 8-minute delay due to traffic</p>
+                                        <p class="text-xs text-text-secondary mt-1">3 minutes ago</p>
+                                    </div>
+                                    <button class="text-warning hover:text-warning-700 text-sm">Resolve</button>
+                                </div>
+                                
+                                <div class="flex items-start gap-3 p-3 bg-error-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-error rounded-full mt-2 flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-text-primary">Maintenance Required</p>
+                                        <p class="text-xs text-text-secondary">Vehicle #1847 requires immediate inspection - GPS malfunction</p>
+                                        <p class="text-xs text-text-secondary mt-1">12 minutes ago</p>
+                                    </div>
+                                    <button class="text-error hover:text-error-700 text-sm">Assign</button>
+                                </div>
+                                
+                                <div class="flex items-start gap-3 p-3 bg-success-50 rounded-lg">
+                                    <div class="w-2 h-2 bg-success rounded-full mt-2 flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-text-primary">Route Optimization Complete</p>
+                                        <p class="text-xs text-text-secondary">Route 42 schedule updated - 15% efficiency improvement</p>
+                                        <p class="text-xs text-text-secondary mt-1">1 hour ago</p>
+                                    </div>
+                                    <button class="text-success hover:text-success-700 text-sm">View</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">System Health</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-text-primary">GPS Tracking</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-success rounded-full"></div>
+                                        <span class="text-sm font-medium text-success">Operational</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-text-primary">Communication Network</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-success rounded-full"></div>
+                                        <span class="text-sm font-medium text-success">Operational</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-text-primary">Data Processing</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-warning rounded-full"></div>
+                                        <span class="text-sm font-medium text-warning">High Load</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-text-primary">Mobile App API</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 bg-success rounded-full"></div>
+                                        <span class="text-sm font-medium text-success">Operational</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Chart -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-text-primary">Performance Trends</h3>
+                            <div class="flex gap-2">
+                                <button class="px-3 py-1 text-xs bg-primary-100 text-primary rounded-md">7 Days</button>
+                                <button class="px-3 py-1 text-xs text-text-secondary hover:bg-gray-100 rounded-md">30 Days</button>
+                                <button class="px-3 py-1 text-xs text-text-secondary hover:bg-gray-100 rounded-md">90 Days</button>
+                            </div>
+                        </div>
+                        <div class="relative bg-gray-50 rounded-lg p-6" style="height: 300px;">
+                            <svg class="w-full h-full" viewBox="0 0 800 200">
+                                <!-- Grid lines -->
+                                <defs>
+                                    <pattern id="grid" width="80" height="40" patternUnits="userSpaceOnUse">
+                                        <path d="M 80 0 L 0 0 0 40" fill="none" stroke="#e5e7eb" stroke-width="1"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="100%" fill="url(#grid)"/>
+                                
+                                <!-- Performance line -->
+                                <polyline fill="none" stroke="#2563EB" stroke-width="3" points="0,160 100,140 200,120 300,110 400,100 500,95 600,90 700,85 800,80"/>
+                                
+                                <!-- Data points -->
+                                <circle cx="0" cy="160" r="4" fill="#2563EB"/>
+                                <circle cx="100" cy="140" r="4" fill="#2563EB"/>
+                                <circle cx="200" cy="120" r="4" fill="#2563EB"/>
+                                <circle cx="300" cy="110" r="4" fill="#2563EB"/>
+                                <circle cx="400" cy="100" r="4" fill="#2563EB"/>
+                                <circle cx="500" cy="95" r="4" fill="#2563EB"/>
+                                <circle cx="600" cy="90" r="4" fill="#2563EB"/>
+                                <circle cx="700" cy="85" r="4" fill="#2563EB"/>
+                                <circle cx="800" cy="80" r="4" fill="#2563EB"/>
+                            </svg>
+                            <div class="absolute bottom-2 left-2 text-xs text-text-secondary">On-Time Performance: 94.2%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fleet Management Section -->
+            <div id="fleet-section" class="admin-section hidden">
+                <div class="bg-surface border-b border-border-light px-4 py-6 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-text-primary">Fleet Management</h1>
+                            <p class="text-text-secondary">Monitor and manage your entire vehicle fleet</p>
+                        </div>
+                        <button class="btn-primary">Add Vehicle</button>
+                    </div>
+                </div>
+
+                <div class="px-4 py-6 sm:px-6 lg:px-8">
+                    <!-- Fleet Status Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-success mb-1">189</div>
+                            <div class="text-sm text-text-secondary">Active Vehicles</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-warning mb-1">12</div>
+                            <div class="text-sm text-text-secondary">In Maintenance</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-error mb-1">3</div>
+                            <div class="text-sm text-text-secondary">Out of Service</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-text-primary mb-1">247</div>
+                            <div class="text-sm text-text-secondary">Total Fleet</div>
+                        </div>
+                    </div>
+
+                    <!-- Vehicle List -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-text-primary">Vehicle Status</h3>
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="Search vehicles..." class="input-field w-64" />
+                                <button class="px-4 py-2 border border-border-light rounded-lg hover:bg-gray-50">Filter</button>
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-border-light">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Vehicle ID</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Route</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Driver</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Last Update</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-border-light">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-text-primary">#1523</div>
+                                            <div class="text-sm text-text-secondary">2019 New Flyer</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="route-code text-primary">Route 15</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-text-primary">Mike Rodriguez</div>
+                                            <div class="text-sm text-text-secondary">ID: DR-4521</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="status-warning">Delayed</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                            2 min ago
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <button class="text-primary hover:text-primary-700 mr-3">View</button>
+                                            <button class="text-text-secondary hover:text-text-primary">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-text-primary">#1847</div>
+                                            <div class="text-sm text-text-secondary">2020 Gillig</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="route-code text-secondary">Route 42</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-text-primary">Sarah Chen</div>
+                                            <div class="text-sm text-text-secondary">ID: DR-3892</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="status-success">On Time</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                            1 min ago
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <button class="text-primary hover:text-primary-700 mr-3">View</button>
+                                            <button class="text-text-secondary hover:text-text-primary">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-text-primary">#1692</div>
+                                            <div class="text-sm text-text-secondary">2018 Nova Bus</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-text-secondary">Maintenance</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-text-secondary">Unassigned</div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="status-error">Out of Service</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                            4 hours ago
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <button class="text-primary hover:text-primary-700 mr-3">View</button>
+                                            <button class="text-text-secondary hover:text-text-primary">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Management Section -->
+            <div id="routes-section" class="admin-section hidden">
+                <div class="bg-surface border-b border-border-light px-4 py-6 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-text-primary">Route Management</h1>
+                            <p class="text-text-secondary">Configure routes, schedules, and service patterns</p>
+                        </div>
+                        <button class="btn-primary">Create Route</button>
+                    </div>
+                </div>
+
+                <div class="px-4 py-6 sm:px-6 lg:px-8">
+                    <!-- Route Overview -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-primary mb-1">24</div>
+                            <div class="text-sm text-text-secondary">Active Routes</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-secondary mb-1">156</div>
+                            <div class="text-sm text-text-secondary">Bus Stops</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-warning mb-1">94.2%</div>
+                            <div class="text-sm text-text-secondary">Schedule Adherence</div>
+                        </div>
+                    </div>
+
+                    <!-- Route List -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-text-primary">Route Configuration</h3>
+                            <div class="flex gap-2">
+                                <button class="px-4 py-2 border border-border-light rounded-lg hover:bg-gray-50">Export</button>
+                                <button class="px-4 py-2 border border-border-light rounded-lg hover:bg-gray-50">Import</button>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="border border-border-light rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <span class="route-code text-primary bg-primary-50 px-3 py-1 rounded-md">Route 15</span>
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">University ↔ Shopping Mall</h4>
+                                            <p class="text-sm text-text-secondary">12.4 miles • 18 stops • 45 min average</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-success">Active</span>
+                                        <button class="text-text-secondary hover:text-text-primary">
+                                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Frequency:</span>
+                                        <span class="text-text-primary ml-1">Every 15 min</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Operating Hours:</span>
+                                        <span class="text-text-primary ml-1">5:30 AM - 11:30 PM</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Daily Ridership:</span>
+                                        <span class="text-text-primary ml-1">2,847 passengers</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-border-light rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <span class="route-code text-secondary bg-secondary-50 px-3 py-1 rounded-md">Route 42</span>
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Downtown ↔ Airport</h4>
+                                            <p class="text-sm text-text-secondary">18.7 miles • 24 stops • 65 min average</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-success">Active</span>
+                                        <button class="text-text-secondary hover:text-text-primary">
+                                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Frequency:</span>
+                                        <span class="text-text-primary ml-1">Every 20 min</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Operating Hours:</span>
+                                        <span class="text-text-primary ml-1">4:45 AM - 12:15 AM</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Daily Ridership:</span>
+                                        <span class="text-text-primary ml-1">4,123 passengers</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border border-border-light rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <span class="route-code text-primary bg-primary-50 px-3 py-1 rounded-md">Route 8</span>
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Hospital ↔ Train Station</h4>
+                                            <p class="text-sm text-text-secondary">8.2 miles • 14 stops • 32 min average</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-warning">Modified Schedule</span>
+                                        <button class="text-text-secondary hover:text-text-primary">
+                                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                    <div>
+                                        <span class="text-text-secondary">Frequency:</span>
+                                        <span class="text-text-primary ml-1">Every 12 min</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Operating Hours:</span>
+                                        <span class="text-text-primary ml-1">6:00 AM - 10:00 PM</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-text-secondary">Daily Ridership:</span>
+                                        <span class="text-text-primary ml-1">1,654 passengers</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Section -->
+            <div id="analytics-section" class="admin-section hidden">
+                <div class="bg-surface border-b border-border-light px-4 py-6 sm:px-6 lg:px-8">
+                    <div>
+                        <h1 class="text-2xl font-bold text-text-primary">System Analytics</h1>
+                        <p class="text-text-secondary">Performance insights and operational metrics</p>
+                    </div>
+                </div>
+
+                <div class="px-4 py-6 sm:px-6 lg:px-8">
+                    <!-- Analytics Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-primary mb-1">2.4M</div>
+                            <div class="text-sm text-text-secondary">Monthly Rides</div>
+                            <div class="text-xs text-success mt-1">↑ 12% vs last month</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-secondary mb-1">$847K</div>
+                            <div class="text-sm text-text-secondary">Revenue</div>
+                            <div class="text-xs text-success mt-1">↑ 8% vs last month</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-warning mb-1">4.7</div>
+                            <div class="text-sm text-text-secondary">Avg Rating</div>
+                            <div class="text-xs text-success mt-1">↑ 0.2 vs last month</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-text-primary mb-1">18.4</div>
+                            <div class="text-sm text-text-secondary">Avg Trip (min)</div>
+                            <div class="text-xs text-error mt-1">↓ 1.2 vs last month</div>
+                        </div>
+                    </div>
+
+                    <!-- Charts -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="card">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Ridership Trends</h3>
+                            <div class="relative bg-gray-50 rounded-lg p-4" style="height: 250px;">
+                                <svg class="w-full h-full" viewBox="0 0 400 200">
+                                    <!-- Bar chart -->
+                                    <rect x="20" y="150" width="30" height="40" fill="#2563EB" opacity="0.8"/>
+                                    <rect x="60" y="130" width="30" height="60" fill="#2563EB" opacity="0.8"/>
+                                    <rect x="100" y="110" width="30" height="80" fill="#2563EB" opacity="0.8"/>
+                                    <rect x="140" y="90" width="30" height="100" fill="#2563EB" opacity="0.8"/>
+                                    <rect x="180" y="70" width="30" height="120" fill="#2563EB" opacity="0.8"/>
+                                    <rect x="220" y="85" width="30" height="105" fill="#2563EB" opacity="0.8"/>
+                                    <rect x="260" y="95" width="30" height="95" fill="#2563EB" opacity="0.8"/>
+                                    <rect x="300" y="75" width="30" height="115" fill="#2563EB" opacity="0.8"/>
+                                    <rect x="340" y="60" width="30" height="130" fill="#2563EB" opacity="0.8"/>
+                                </svg>
+                                <div class="absolute bottom-2 left-2 text-xs text-text-secondary">Daily ridership over 30 days</div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Route Performance</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <span class="route-code text-primary">Route 42</span>
+                                        <span class="text-sm text-text-primary">Downtown ↔ Airport</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-success">96.2%</div>
+                                        <div class="text-xs text-text-secondary">On-time</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <span class="route-code text-secondary">Route 15</span>
+                                        <span class="text-sm text-text-primary">University ↔ Mall</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-warning">89.4%</div>
+                                        <div class="text-xs text-text-secondary">On-time</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <span class="route-code text-primary">Route 8</span>
+                                        <span class="text-sm text-text-primary">Hospital ↔ Station</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-success">94.8%</div>
+                                        <div class="text-xs text-text-secondary">On-time</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <span class="route-code text-secondary">Route 23</span>
+                                        <span class="text-sm text-text-primary">Residential ↔ Downtown</span>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sm font-medium text-success">92.1%</div>
+                                        <div class="text-xs text-text-secondary">On-time</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maintenance Section -->
+            <div id="maintenance-section" class="admin-section hidden">
+                <div class="bg-surface border-b border-border-light px-4 py-6 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-text-primary">Maintenance Management</h1>
+                            <p class="text-text-secondary">Track vehicle maintenance and service schedules</p>
+                        </div>
+                        <button class="btn-primary">Schedule Maintenance</button>
+                    </div>
+                </div>
+
+                <div class="px-4 py-6 sm:px-6 lg:px-8">
+                    <!-- Maintenance Overview -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-warning mb-1">12</div>
+                            <div class="text-sm text-text-secondary">Scheduled Today</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-error mb-1">3</div>
+                            <div class="text-sm text-text-secondary">Overdue</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-success mb-1">28</div>
+                            <div class="text-sm text-text-secondary">Completed This Week</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-text-primary mb-1">$47K</div>
+                            <div class="text-sm text-text-secondary">Monthly Cost</div>
+                        </div>
+                    </div>
+
+                    <!-- Maintenance Schedule -->
+                    <div class="card">
+                        <h3 class="text-lg font-semibold text-text-primary mb-6">Maintenance Schedule</h3>
+                        <div class="space-y-4">
+                            <div class="border border-border-light rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-3 h-3 bg-error rounded-full"></div>
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Vehicle #1692 - Engine Service</h4>
+                                            <p class="text-sm text-text-secondary">Overdue by 3 days • Last service: Aug 15, 2025</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-error">Overdue</span>
+                                        <button class="text-primary hover:text-primary-700 text-sm">Schedule</button>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-text-secondary">
+                                    <span class="font-medium">Technician:</span> Mike Thompson • 
+                                    <span class="font-medium">Estimated Time:</span> 4 hours • 
+                                    <span class="font-medium">Cost:</span> $850
+                                </div>
+                            </div>
+
+                            <div class="border border-border-light rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-3 h-3 bg-warning rounded-full"></div>
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Vehicle #1523 - Brake Inspection</h4>
+                                            <p class="text-sm text-text-secondary">Due today • Last service: Sep 1, 2025</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-warning">Due Today</span>
+                                        <button class="text-primary hover:text-primary-700 text-sm">Assign</button>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-text-secondary">
+                                    <span class="font-medium">Technician:</span> Sarah Davis • 
+                                    <span class="font-medium">Estimated Time:</span> 2 hours • 
+                                    <span class="font-medium">Cost:</span> $320
+                                </div>
+                            </div>
+
+                            <div class="border border-border-light rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-3 h-3 bg-success rounded-full"></div>
+                                        <div>
+                                            <h4 class="font-medium text-text-primary">Vehicle #1847 - Oil Change</h4>
+                                            <p class="text-sm text-text-secondary">Completed today • Duration: 1.5 hours</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-success">Completed</span>
+                                        <button class="text-text-secondary hover:text-text-primary text-sm">View Report</button>
+                                    </div>
+                                </div>
+                                <div class="text-sm text-text-secondary">
+                                    <span class="font-medium">Technician:</span> Alex Johnson • 
+                                    <span class="font-medium">Actual Time:</span> 1.5 hours • 
+                                    <span class="font-medium">Cost:</span> $125
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts Section -->
+            <div id="alerts-section" class="admin-section hidden">
+                <div class="bg-surface border-b border-border-light px-4 py-6 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-text-primary">Alerts & Communications</h1>
+                            <p class="text-text-secondary">Manage system alerts and passenger communications</p>
+                        </div>
+                        <button class="btn-primary">Create Alert</button>
+                    </div>
+                </div>
+
+                <div class="px-4 py-6 sm:px-6 lg:px-8">
+                    <!-- Alert Management -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="card">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Active Alerts</h3>
+                            <div class="space-y-3">
+                                <div class="border border-warning-200 bg-warning-50 rounded-lg p-4">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <h4 class="font-medium text-text-primary">Route 15 Service Disruption</h4>
+                                        <button class="text-warning hover:text-warning-700 text-sm">Edit</button>
+                                    </div>
+                                    <p class="text-sm text-text-secondary mb-3">Construction on Main St causing 10-15 minute delays. Alternative routes available.</p>
+                                    <div class="flex items-center justify-between text-xs text-text-secondary">
+                                        <span>Active since: Sep 29, 2025 8:00 AM</span>
+                                        <span>Sent to: 2,847 users</span>
+                                    </div>
+                                </div>
+
+                                <div class="border border-error-200 bg-error-50 rounded-lg p-4">
+                                    <div class="flex items-start justify-between mb-2">
+                                        <h4 class="font-medium text-text-primary">Emergency Maintenance</h4>
+                                        <button class="text-error hover:text-error-700 text-sm">Edit</button>
+                                    </div>
+                                    <p class="text-sm text-text-secondary mb-3">Route 8 temporarily suspended due to vehicle breakdown. Service resuming at 4:00 PM.</p>
+                                    <div class="flex items-center justify-between text-xs text-text-secondary">
+                                        <span>Active since: Sep 29, 2025 2:15 PM</span>
+                                        <span>Sent to: 1,654 users</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 class="text-lg font-semibold text-text-primary mb-4">Communication Channels</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-3 border border-border-light rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
+                                            <svg class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-primary">Push Notifications</div>
+                                            <div class="text-sm text-text-secondary">12,847 active subscribers</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-success">Active</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 border border-border-light rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-secondary-100 rounded-lg flex items-center justify-center">
+                                            <svg class="h-4 w-4 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-primary">Email Alerts</div>
+                                            <div class="text-sm text-text-secondary">8,234 subscribers</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-success">Active</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 border border-border-light rounded-lg">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 bg-warning-100 rounded-lg flex items-center justify-center">
+                                            <svg class="h-4 w-4 text-warning" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium text-text-primary">SMS Alerts</div>
+                                            <div class="text-sm text-text-secondary">4,567 subscribers</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="status-success">Active</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Section -->
+            <div id="users-section" class="admin-section hidden">
+                <div class="bg-surface border-b border-border-light px-4 py-6 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h1 class="text-2xl font-bold text-text-primary">User Management</h1>
+                            <p class="text-text-secondary">Manage user accounts and access permissions</p>
+                        </div>
+                        <button class="btn-primary">Add User</button>
+                    </div>
+                </div>
+
+                <div class="px-4 py-6 sm:px-6 lg:px-8">
+                    <!-- User Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-primary mb-1">12,847</div>
+                            <div class="text-sm text-text-secondary">Total Users</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-secondary mb-1">8,234</div>
+                            <div class="text-sm text-text-secondary">Active Today</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-warning mb-1">24</div>
+                            <div class="text-sm text-text-secondary">Admin Users</div>
+                        </div>
+                        <div class="card text-center">
+                            <div class="text-2xl font-bold text-text-primary mb-1">847</div>
+                            <div class="text-sm text-text-secondary">New This Month</div>
+                        </div>
+                    </div>
+
+                    <!-- User List -->
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold text-text-primary">User Accounts</h3>
+                            <div class="flex gap-2">
+                                <input type="text" placeholder="Search users..." class="input-field w-64" />
+                                <button class="px-4 py-2 border border-border-light rounded-lg hover:bg-gray-50">Filter</button>
+                            </div>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-border-light">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">User</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Role</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Last Active</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-border-light">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center mr-3">
+                                                    <span class="text-primary font-semibold text-sm">SJ</span>
+                                                </div>
+                                                <div>
+                                                    <div class="text-sm font-medium text-text-primary">Sarah Johnson</div>
+                                                    <div class="text-sm text-text-secondary">sarah.johnson@transit.gov</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="status-success">Administrator</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                            2 minutes ago
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="status-success">Active</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <button class="text-primary hover:text-primary-700 mr-3">Edit</button>
+                                            <button class="text-text-secondary hover:text-text-primary">Disable</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="w-8 h-8 bg-secondary-100 rounded-full flex items-center justify-center mr-3">
+                                                    <span class="text-secondary font-semibold text-sm">MR</span>
+                                                </div>
+                                                <div>
+                                                    <div class="text-sm font-medium text-text-primary">Mike Rodriguez</div>
+                                                    <div class="text-sm text-text-secondary">mike.rodriguez@transit.gov</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="status-warning">Operator</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-text-secondary">
+                                            1 hour ago
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="status-success">Active</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <button class="text-primary hover:text-primary-700 mr-3">Edit</button>
+                                            <button class="text-text-secondary hover:text-text-primary">Disable</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-text-primary text-white py-8 lg:pl-64">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-300">© 2025 TransitTracker Pro. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.admin-section');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            }
+            
+            // Update sidebar navigation
+            const navLinks = document.querySelectorAll('aside nav a');
+            navLinks.forEach(link => {
+                link.classList.remove('bg-primary-50', 'text-primary');
+                link.classList.add('text-text-secondary', 'hover:text-text-primary', 'hover:bg-gray-50');
+                const svg = link.querySelector('svg');
+                if (svg) {
+                    svg.classList.remove('text-primary');
+                    svg.classList.add('text-text-secondary');
+                }
+            });
+            
+            // Highlight active link
+            const activeLink = document.querySelector(`aside nav a[href="#${sectionName}"]`);
+            if (activeLink) {
+                activeLink.classList.remove('text-text-secondary', 'hover:text-text-primary', 'hover:bg-gray-50');
+                activeLink.classList.add('bg-primary-50', 'text-primary');
+                const svg = activeLink.querySelector('svg');
+                if (svg) {
+                    svg.classList.remove('text-text-secondary');
+                    svg.classList.add('text-primary');
+                }
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('overview');
+        });
+
+        // Auto-refresh data every 30 seconds
+        setInterval(function() {
+            // Simulate real-time updates
+            const timestamp = new Date().toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            
+            const timestampElements = document.querySelectorAll('.text-sm.font-medium.text-text-primary');
+            timestampElements.forEach(element => {
+                if (element.textContent.includes('PM') || element.textContent.includes('AM')) {
+                    element.textContent = timestamp;
+                }
+            });
+        }, 30000);
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
